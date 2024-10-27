@@ -1,0 +1,10 @@
+<div class="card">
+  <h5 class="card-header">{{producto.producto}}</h5>
+  <div class="card-body">
+    <p class="card-text">Cantidad: {{ producto.cantidad }}</p>
+    <button (click)="increaseQuantity()">+</button>
+    <button (click)="decreaseQuantity()">-</button>
+    <p class="card-text">{{ producto.precio }}</p>
+    <button (click)="AgregarAlCarrito()"><i class="bi bi-cart-plus"></i></button>
+  </div>
+</div>

@@ -8,15 +8,23 @@ import { NuevaOrdenComponent } from './ordenes/pages/nueva-orden/nueva-orden.com
 import { ListaOrdenesComponent } from './ordenes/pages/lista-ordenes/lista-ordenes.component';
 import { CategoriasComponent } from './ordenes/components/categorias/categorias.component';
 import { CarritoComprasComponent } from './ordenes/components/carrito-compras/carrito-compras.component';
+import { OrdenesCocinaComponent } from './ordenes/pages/ordenes-cocina/ordenes-cocina.component';
+import { FormsModule } from '@angular/forms';
+import { CardComponent } from './ordenes/components/card/card.component';
+import { ProductosComponent } from './ordenes/components/productos/productos.component';
+import { ConfiguracionComponent } from './ordenes/pages/configuracion/configuracion.component';
+import { NuevoProductoComponent } from './ordenes/components/nuevo-producto/nuevo-producto.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,NavBarComponent, NuevaOrdenComponent, ListaOrdenesComponent, CategoriasComponent, CarritoComprasComponent
+    AppComponent,NavBarComponent, NuevaOrdenComponent, ListaOrdenesComponent,
+     CategoriasComponent, CarritoComprasComponent, OrdenesCocinaComponent, CardComponent, ProductosComponent, ConfiguracionComponent, NuevoProductoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
