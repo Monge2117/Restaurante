@@ -53,12 +53,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of ObtenerCarritoCompras()">
+              <tr *ngFor="let item of carrito">
                 <td>{{item.producto}}</td>
-                <td><input type="number" min="1" [(ngModel)]="item.cantidad"></td>
-                <td><input type="text" [(ngModel)]="item.descipcion"></td>
-                <td>{{item.precio}}</td>
-                <td><button><i class="bi bi-x-lg"></i></button></td>
+                <td>
+                  <div class="d-flex">
+                  <p class="me-1">{{item.cantidad}}</p>
+                  <shared-cantidad-dinamic [cantidad]="item.cantidad" [precio]="item.precio" (propagar)="updateQuantity(item.id,$event)"></shared-cantidad-dinamic>
+                </div>
+                </td>
+                <td><input type="text" class="form-control" [(ngModel)]="item.descipcion"></td>
+                <td>{{item.precioTotal}}</td>
+                <td><button class="btn btn-danger"><i class="bi bi-x-lg"></i></button></td>
               </tr>
             </tbody>
           </table>
@@ -73,17 +78,13 @@
         >
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="ConfirmarCarritoCompras()">Enviar</button>
+        <button type="button" class="btn btn-primary" (click)="ConfirmarCarritoCompras(); toastProducto.showToast()">Enviar</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Optional: Place to the bottom of scripts
-<script>
-  const myModal = new bootstrap.Modal(
-    document.getElementById("modalId"),
-    options,
-  );
-</script>
+<shared-toast #toastProducto></shared-toast>
+<!-- Optional: Place to the bottom of scripts toastProducto.showToast()
 -->
+

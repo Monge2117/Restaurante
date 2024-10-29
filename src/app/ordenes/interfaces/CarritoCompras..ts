@@ -3,6 +3,7 @@ export interface CarritoCompras {
   producto:string,
   cantidad:number,
   descipcion:string,
-  precio:number
-  cocinada:boolean
+  precio:number,
+  cocinada:boolean,
+  precioTotal:number;
 }

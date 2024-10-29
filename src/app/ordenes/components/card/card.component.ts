@@ -3,6 +3,8 @@ import { Productos } from '../../interfaces/Productos.';
 import { OrdenesService } from '../../services/ordenes.service';
 import { CarritoCompras } from '../../interfaces/CarritoCompras.';
 
+
+
 @Component({
   selector: 'orden-card',
   templateUrl: './card.component.html',
@@ -15,7 +17,8 @@ export class CardComponent {
     id: 0,
     producto: '',
     cantidad: 0,
-    precio: 0
+    precio: 0,
+    Categoria:0
   };
 
   increaseQuantity() {
@@ -23,7 +26,7 @@ export class CardComponent {
   }
 
   decreaseQuantity() {
-    if (this.producto.cantidad > 0) {
+    if (this.producto.cantidad > 1) {
       this.producto.cantidad--;
     }
   }
@@ -33,10 +36,18 @@ export class CardComponent {
       producto: this.producto.producto,
       cantidad: this.producto.cantidad,
       descipcion: '',
-      precio: this.producto.precio * this.producto.cantidad,
-      cocinada: false
+      precio: this.producto.precio,
+      cocinada: false,
+      precioTotal:this.producto.precio*this.producto.cantidad
     }
 
     this.OrdenesService.AgregarCarritoCompras(nuevoProducto);
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Your work has been saved",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 }
