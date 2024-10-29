@@ -3,7 +3,7 @@
   *ngFor="let item of Categorias(); let i = index"
   class="list-group-item"
   [class.active]="activeIndex === i"
-  (click)="setActive(i)">
+  (click)="setActive(i,item.id)">
   {{ item.nombre }}
 </li>
 </ul>

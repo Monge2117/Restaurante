@@ -9,9 +9,9 @@
     <orden-carrito-compras></orden-carrito-compras>
   </div>
 
-  <orden-categorias></orden-categorias>
+  <orden-categorias (idCategoria)="setearIdCategoria($event)"></orden-categorias>
  </div>
  <div class="col-md-9">
- <orden-productos></orden-productos>
+ <orden-productos [idCategoria]="idCategoria"></orden-productos>
  </div>
 </div>

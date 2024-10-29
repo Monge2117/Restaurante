@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Productos } from '../../interfaces/Productos.';
 import { OrdenesService } from '../../services/ordenes.service';
 import { CarritoCompras } from '../../interfaces/CarritoCompras.';
+import { SweetAlertService } from '../../../shared/services/sweet-alert.service';
 
 
 
@@ -11,7 +12,7 @@ import { CarritoCompras } from '../../interfaces/CarritoCompras.';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-  constructor(private OrdenesService:OrdenesService){}
+  constructor(private OrdenesService:OrdenesService,private SweetAlertService:SweetAlertService){}
   @Input()
   producto:Productos ={
     id: 0,
@@ -42,12 +43,7 @@ export class CardComponent {
     }
 
     this.OrdenesService.AgregarCarritoCompras(nuevoProducto);
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Your work has been saved",
-      showConfirmButton: false,
-      timer: 1500
-    });
+    this.SweetAlertService.mensajeConfirmacion('se agrego 1 producto');
+
   }
 }

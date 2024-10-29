@@ -48,12 +48,12 @@
                 <th scope="col">Producto</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Descripcion</th>
-                <th scope="col">Precio</th>
+                <th scope="col">Total</th>
                 <th scope="col">Opciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of carrito">
+              <tr *ngFor="let item of ObtenerCarritoCompras()">
                 <td>{{item.producto}}</td>
                 <td>
                   <div class="d-flex">
@@ -63,7 +63,7 @@
                 </td>
                 <td><input type="text" class="form-control" [(ngModel)]="item.descipcion"></td>
                 <td>{{item.precioTotal}}</td>
-                <td><button class="btn btn-danger"><i class="bi bi-x-lg"></i></button></td>
+                <td><button class="btn btn-danger" (click)="eliminarproductoCarrito(item.id)"><i class="bi bi-x-lg"></i></button></td>
               </tr>
             </tbody>
           </table>
@@ -71,6 +71,10 @@
 
       </div>
       <div class="modal-footer">
+        <div class="d-flex">
+        <h4>Mesa:</h4>
+        <input type="text" class="form-control" placeholder="numero de mesa">
+      </div>
         <button
           type="button"
           class="btn btn-secondary"
@@ -78,13 +82,9 @@
         >
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="ConfirmarCarritoCompras(); toastProducto.showToast()">Enviar</button>
+        <button type="button" class="btn btn-primary" (click)="ConfirmarCarritoCompras()">Enviar</button>
       </div>
     </div>
   </div>
 </div>
-
-<shared-toast #toastProducto></shared-toast>
-<!-- Optional: Place to the bottom of scripts toastProducto.showToast()
--->
 

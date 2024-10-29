@@ -15,14 +15,15 @@ import { ProductosComponent } from './ordenes/components/productos/productos.com
 import { ConfiguracionComponent } from './ordenes/pages/configuracion/configuracion.component';
 import { NuevoProductoComponent } from './ordenes/components/nuevo-producto/nuevo-producto.component';
 import { CantidadDinamicComponent } from './shared/components/cantidad-dinamic/cantidad-dinamic.component';
-import { ToastComponent } from './shared/components/toast/toast.component';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,NavBarComponent, NuevaOrdenComponent, ListaOrdenesComponent,
-     CategoriasComponent, CarritoComprasComponent, OrdenesCocinaComponent, CardComponent, ProductosComponent, ConfiguracionComponent, NuevoProductoComponent, CantidadDinamicComponent, ToastComponent
+     CategoriasComponent, CarritoComprasComponent, OrdenesCocinaComponent, CardComponent,
+      ProductosComponent, ConfiguracionComponent, NuevoProductoComponent, CantidadDinamicComponent
   ],
   imports: [
     BrowserModule,

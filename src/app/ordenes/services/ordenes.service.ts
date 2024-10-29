@@ -11,7 +11,7 @@ export class OrdenesService {
 
   constructor() { }
 
-  private ListaCategorias:Categorias[]=[{id:1,nombre:'Bebidas'},{id:2,nombre:'Desayunos'},{id:2,nombre:'Comida rapida'}]
+  private ListaCategorias:Categorias[]=[{id:1,nombre:'Bebidas'},{id:2,nombre:'Desayunos'},{id:3,nombre:'Comida rapida'}]
   private _ListaProductos: Productos[] = [
     {id:1,
       producto:"coca cola litro 2l abcdegerr sssss aaaaa",
@@ -44,8 +44,33 @@ export class OrdenesService {
   public get CarritoCompras(): CarritoCompras[] {
     return this._CarritoCompras;
   }
+
+  public SetCarritoCompras(id:number,cantidad:number,preciototal:number){
+   let producto= this._CarritoCompras.find(x =>x.id ==id);
+   if (producto) {
+   producto.cantidad = cantidad;
+   producto.precioTotal = preciototal;
+   }
+  }
+
+  public eliminarItemCarritoCompras(id:number){
+    const index = this.CarritoCompras.findIndex(x => x.id == id);
+     if (index !== -1) {
+      this.CarritoCompras.splice(index, 1);
+     }
+   }
+  public LimpiarCarritoCompras(){
+    this._CarritoCompras =[];
+  }
   public AgregarCarritoCompras(value: CarritoCompras) {
+  let producto =  this.CarritoCompras.find(x => x.id == value.id);
+  if (producto != null) {
+      producto.cantidad = value.cantidad;
+      producto.precioTotal = value.precioTotal;
+  }else{
     this._CarritoCompras.push(value);
+  }
+
   }
   get GetCategorias(){
      return [...this.ListaCategorias]
@@ -55,7 +80,7 @@ export class OrdenesService {
     this._Ordenes.push(value);
   }
 
-  get GetProductos(){
-    return [...this._ListaProductos]
+   GetProductos(idCategoria:number){
+    return [...this._ListaProductos.filter(x =>x.Categoria == idCategoria)]
  }
 }
