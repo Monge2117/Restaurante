@@ -3,7 +3,7 @@ import { Productos } from '../../interfaces/Productos.';
 import { OrdenesService } from '../../services/ordenes.service';
 import { CarritoCompras } from '../../interfaces/CarritoCompras.';
 import { SweetAlertService } from '../../../shared/services/sweet-alert.service';
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class CardComponent {
   }
   AgregarAlCarrito(){
     const nuevoProducto:CarritoCompras={
-     // idOrdenDetalle:
+      idOrdenDetalle:uuidv4(),
       id: this.producto.id,
       producto: this.producto.producto,
       cantidad: this.producto.cantidad,

@@ -83,7 +83,6 @@ export class OrdenesService {
    }else{
     this._Ordenes.push(value);
    }
-console.log(this._Ordenes);
   }
 
    GetProductos(idCategoria:number){
@@ -91,7 +90,7 @@ console.log(this._Ordenes);
  }
 
  GetSearchProductos(textoBuscado:string){
-  return [...this._ListaProductos.filter(x =>x.producto.startsWith(textoBuscado))]
+  return [...this._ListaProductos.filter(x =>x.producto.includes(textoBuscado))]
 }
 get GetOrdenes(){
   return [...this._Ordenes]
@@ -109,10 +108,10 @@ const index = this._Ordenes.findIndex(x => x.mesa == mesa);
      }
 }
 
- SetOrden(mesa:string,idProducto:number){
+ SetOrden(mesa:string,idOrdenDetalle:string){
   let Orden= this._Ordenes.find(x =>x.mesa == mesa);
   if (Orden) {
- let producto = Orden.productos.find(x => x.id == idProducto);
+ let producto = Orden.productos.find(x => x.idOrdenDetalle == idOrdenDetalle);
  if (producto) {
      producto.cocinada = true;
  }

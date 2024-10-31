@@ -14,7 +14,7 @@ obtenerOrdenes(){
  return this.OrdenesService.GetOrdenesCocina;
 }
 
-estaListo(mesa:string,idProducto:number){
-  this.OrdenesService.SetOrden(mesa,idProducto);
+estaListo(mesa:string,idOrdenDetalle:string){
+  this.OrdenesService.SetOrden(mesa,idOrdenDetalle);
 }
 }
