@@ -11,8 +11,15 @@ export class ProductosComponent {
 constructor(private OrdenesService:OrdenesService){}
 @Input()
 idCategoria:number=0;
+@Input()
+textoBuscado:string='';
+
 ObtenerProductos(){
-  console.log(this.idCategoria);
-  return this.OrdenesService.GetProductos(this.idCategoria);
+  if (this.textoBuscado =='') {
+ return this.OrdenesService.GetProductos(this.idCategoria);
+  } else {
+    return this.OrdenesService.GetSearchProductos(this.textoBuscado);
+  }
+
 }
 }

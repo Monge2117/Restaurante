@@ -2,16 +2,13 @@
  <div class="col-md-3">
 
   <div class="d-flex justify-content-between m-2">
-    <div class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="buscar" aria-label="Search">
-      <button class="btn btn-primary"><i class="bi bi-search"></i></button>
-    </div>
+   <input class="form-control me-2"[(ngModel)]="BuscarProducto" type="search" placeholder="buscar producto" aria-label="Search">
     <orden-carrito-compras></orden-carrito-compras>
   </div>
 
   <orden-categorias (idCategoria)="setearIdCategoria($event)"></orden-categorias>
  </div>
  <div class="col-md-9">
- <orden-productos [idCategoria]="idCategoria"></orden-productos>
+ <orden-productos [idCategoria]="idCategoria" [textoBuscado]="BuscarProducto"></orden-productos>
  </div>
 </div>

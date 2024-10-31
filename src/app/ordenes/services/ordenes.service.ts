@@ -24,17 +24,17 @@ export class OrdenesService {
         precio:1000,
         Categoria:1},
         {id:3,
-          producto:"arroz",
+          producto:"arroz con pollo",
           cantidad:1,
           precio:1000,
           Categoria:2}
           ,{id:4,
-            producto:"arroz 2",
+            producto:"arroz pinto",
             cantidad:1,
             precio:1000,
             Categoria:2}
             ,{id:5,
-              producto:"arroz 3",
+              producto:"arroz con camarones",
               cantidad:1,
               precio:1000,
               Categoria:2}
@@ -83,4 +83,17 @@ export class OrdenesService {
    GetProductos(idCategoria:number){
     return [...this._ListaProductos.filter(x =>x.Categoria == idCategoria)]
  }
+
+ GetSearchProductos(textoBuscado:string){
+  return [...this._ListaProductos.filter(x =>x.producto.startsWith(textoBuscado))]
+}
+get GetOrdenes(){
+  return [...this._Ordenes]
+}
+eliminarOrden(mesa:string){
+const index = this._Ordenes.findIndex(x => x.mesa == mesa);
+     if (index !== -1) {
+      this._Ordenes.splice(index, 1);
+     }
+}
 }

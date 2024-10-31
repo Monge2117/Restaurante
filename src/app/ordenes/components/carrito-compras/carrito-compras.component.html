@@ -56,14 +56,19 @@
               <tr *ngFor="let item of ObtenerCarritoCompras()">
                 <td>{{item.producto}}</td>
                 <td>
-                  <div class="d-flex">
-                  <p class="me-1">{{item.cantidad}}</p>
-                  <shared-cantidad-dinamic [cantidad]="item.cantidad" [precio]="item.precio" (propagar)="updateQuantity(item.id,$event)"></shared-cantidad-dinamic>
+                <div class="d-flex">
+                <p class="me-1">{{item.cantidad}}</p>
+                <shared-cantidad-dinamic [cantidad]="item.cantidad" [precio]="item.precio"
+                (propagar)="updateQuantity(item.id,$event)"></shared-cantidad-dinamic>
                 </div>
                 </td>
                 <td><input type="text" class="form-control" [(ngModel)]="item.descipcion"></td>
                 <td>{{item.precioTotal}}</td>
-                <td><button class="btn btn-danger" (click)="eliminarproductoCarrito(item.id)"><i class="bi bi-x-lg"></i></button></td>
+                <td><button class="btn btn-danger"
+                  [swal]="{ title: 'Eliminar', text: 'Quiere quitar '+item.producto+' del pedido?',
+                  showCancelButton: true, icon: 'warning'}"
+                  (confirm)="eliminarproductoCarrito(item.id)"><i class="bi bi-x-lg"></i></button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -73,7 +78,7 @@
       <div class="modal-footer">
         <div class="d-flex">
         <h4>Mesa:</h4>
-        <input type="text" class="form-control" placeholder="numero de mesa">
+        <input type="text" class="form-control" placeholder="numero de mesa" [(ngModel)]="MesaValue">
       </div>
         <button
           type="button"
@@ -82,7 +87,10 @@
         >
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="ConfirmarCarritoCompras()">Enviar</button>
+        <button type="button" class="btn btn-primary"
+         [swal]="{ title: 'Ordenar', text: 'Enviar a cocina?', showCancelButton: true }"
+        (confirm)="ConfirmarCarritoCompras()"
+        >Enviar</button>
       </div>
     </div>
   </div>

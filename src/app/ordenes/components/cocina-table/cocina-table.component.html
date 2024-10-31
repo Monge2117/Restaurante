@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Mesa</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Descripcion</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let orden of obtenerOrdenes()">
+      <tr *ngFor="let prod of orden.productos">
+        <td>{{orden.mesa}}</td>
+        <td>{{prod.producto}}</td>
+        <td>{{prod.cantidad}}</td>
+        <td>{{prod.descipcion}}</td>
+        <td><button class="btn btn-primary">Esta listo!</button></td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

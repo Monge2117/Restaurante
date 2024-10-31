@@ -4,16 +4,14 @@ import Swal from 'sweetalert2'
   providedIn: 'root'
 })
 export class SweetAlertService {
-
   constructor() { }
-
   mensajeConfirmacion(mensaje:string) {
     Swal.fire({
       position: "top-end",
       icon: "success",
       title: mensaje,
       showConfirmButton: false,
-      timer: 1500
+      timer: 1000
     });
   }
 

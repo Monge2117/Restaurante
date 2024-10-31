@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <li class="list-group-item bg-success text-white"><i class="bi bi-dice-2 me-1"></i><b>{{Orden.mesa}}</b></li>
+  <div *ngFor="let item of Orden.productos">
+      <li class="list-group-item">{{item.producto}} *** cant. {{item.cantidad}}</li>
+  </div>
+  <li class="list-group-item"><i class="bi bi-cash-coin me-1"></i>Total: {{calcularTotal()}}</li>
+  <button class="btn btn-primary" (click)="eliminarOrden()">Eliminar</button>
+</ul>

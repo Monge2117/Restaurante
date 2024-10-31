@@ -1,6 +1,7 @@
 import { CarritoCompras } from "./CarritoCompras.";
 
 export interface Ordenes {
-  mesa:number,
-  Producto:CarritoCompras[]
+  mesa:string,
+  productos:CarritoCompras[]
 }
+
