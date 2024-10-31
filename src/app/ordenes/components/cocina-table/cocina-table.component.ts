@@ -11,6 +11,10 @@ export class CocinaTableComponent {
 constructor(private OrdenesService:OrdenesService){}
 
 obtenerOrdenes(){
- return this.OrdenesService.GetOrdenes
+ return this.OrdenesService.GetOrdenesCocina;
+}
+
+estaListo(mesa:string,idProducto:number){
+  this.OrdenesService.SetOrden(mesa,idProducto);
 }
 }

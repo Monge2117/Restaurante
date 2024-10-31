@@ -33,6 +33,7 @@ export class CardComponent {
   }
   AgregarAlCarrito(){
     const nuevoProducto:CarritoCompras={
+     // idOrdenDetalle:
       id: this.producto.id,
       producto: this.producto.producto,
       cantidad: this.producto.cantidad,

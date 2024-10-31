@@ -77,7 +77,13 @@ export class OrdenesService {
   }
 
   public AgregarOrden(value: Ordenes) {
+   const orden = this._Ordenes.find(x => x.mesa == value.mesa);
+   if(orden != null){
+    orden.productos.push(...value.productos);
+   }else{
     this._Ordenes.push(value);
+   }
+console.log(this._Ordenes);
   }
 
    GetProductos(idCategoria:number){
@@ -90,10 +96,27 @@ export class OrdenesService {
 get GetOrdenes(){
   return [...this._Ordenes]
 }
+get GetOrdenesCocina(){
+const productosNoCocinados = this._Ordenes.map(orden => ({
+                                         mesa: orden.mesa,
+                                         productos: orden.productos.filter(producto => !producto.cocinada) }))
+return productosNoCocinados;
+}
 eliminarOrden(mesa:string){
 const index = this._Ordenes.findIndex(x => x.mesa == mesa);
      if (index !== -1) {
       this._Ordenes.splice(index, 1);
      }
 }
+
+ SetOrden(mesa:string,idProducto:number){
+  let Orden= this._Ordenes.find(x =>x.mesa == mesa);
+  if (Orden) {
+ let producto = Orden.productos.find(x => x.id == idProducto);
+ if (producto) {
+     producto.cocinada = true;
+ }
+  }
+ }
+
 }

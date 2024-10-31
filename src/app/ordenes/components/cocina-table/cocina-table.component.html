@@ -15,7 +15,7 @@
         <td>{{prod.producto}}</td>
         <td>{{prod.cantidad}}</td>
         <td>{{prod.descipcion}}</td>
-        <td><button class="btn btn-primary">Esta listo!</button></td>
+        <td><button class="btn btn-primary" (click)="estaListo(orden.mesa,prod.id)">Esta listo!</button></td>
       </tr>
     </ng-container>
   </tbody>

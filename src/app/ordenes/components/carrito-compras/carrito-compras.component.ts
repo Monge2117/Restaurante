@@ -20,7 +20,7 @@ return this.OrdenesService.CarritoCompras;
 }
 ConfirmarCarritoCompras(){
   if (this.MesaValue =="") {
-    this.SweetAlertService.mensajeError('El campo mesa es obligatorio');
+    this.SweetAlertService.mensajeError('El campo cliente es obligatorio');
     return;
   }
 
