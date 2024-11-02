@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { OrdenesService } from '../../services/ordenes.service';
+import { Categorias } from '../../interfaces/interfaces/categorias.';
 
 @Component({
   selector: 'orden-categorias',
@@ -7,13 +8,16 @@ import { OrdenesService } from '../../services/ordenes.service';
   styleUrl: './categorias.component.css'
 })
 export class CategoriasComponent {
- constructor(private OrdenesService:OrdenesService){}
+ constructor(private OrdenesService:OrdenesService){ }
+
  @Output()
 idCategoria = new EventEmitter<number>();
   activeIndex: number=0;
+
  Categorias(){
   return this.OrdenesService.GetCategorias;
  }
+
   setActive(index: number,id:number) {
     this.activeIndex = index;
     this.idCategoria.emit(id);

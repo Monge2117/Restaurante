@@ -19,7 +19,7 @@ export class CardComponent {
     producto: '',
     cantidad: 0,
     precio: 0,
-    Categoria:0
+    categoria:0
   };
 
   increaseQuantity() {
@@ -33,11 +33,12 @@ export class CardComponent {
   }
   AgregarAlCarrito(){
     const nuevoProducto:CarritoCompras={
+      mesa:'',
       idOrdenDetalle:uuidv4(),
-      id: this.producto.id,
+      idProducto: this.producto.id,
       producto: this.producto.producto,
       cantidad: this.producto.cantidad,
-      descipcion: '',
+      descripcion: '',
       precio: this.producto.precio,
       cocinada: false,
       precioTotal:this.producto.precio*this.producto.cantidad

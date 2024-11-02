@@ -18,6 +18,7 @@ import { CantidadDinamicComponent } from './shared/components/cantidad-dinamic/c
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ListOrdenesComponent } from './ordenes/components/list-ordenes/list-ordenes.component';
 import { CocinaTableComponent } from './ordenes/components/cocina-table/cocina-table.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -31,6 +32,7 @@ import { CocinaTableComponent } from './ordenes/components/cocina-table/cocina-t
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [],

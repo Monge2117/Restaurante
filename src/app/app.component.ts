@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Restaurante';
+  currentPage:string = 'menu';
+  setearpage(value:string){
+    this.currentPage = value;
+  }
+
 }

@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col-6 col-md-3 col-sm-4 mt-2" *ngFor="let item of Ordenes()">
+  <div class="col-6 col-md-3 col-sm-4 mt-2" *ngFor="let item of listaOrdenes">
     <orden-list-ordenes [Orden]="item"></orden-list-ordenes>
   </div>
 </div>
 
-
-
-
+<div *ngIf="totalOrdenes() == 0" class="alert alert-success mt-2" role="alert">
+  No hay ordenes
+</div>

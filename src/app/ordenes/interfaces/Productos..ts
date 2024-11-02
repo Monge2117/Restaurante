@@ -3,5 +3,5 @@ export interface Productos {
   producto:string,
   cantidad:number,
   precio:number,
-  Categoria:number
+  categoria:number
 }

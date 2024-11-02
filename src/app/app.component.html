@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col">
-    <shared-nav-bar></shared-nav-bar>
+    <shared-nav-bar (propagar)="setearpage($event)"></shared-nav-bar>
   </div>
 </div>
-<page-nueva-orden></page-nueva-orden>
-<page-lista-ordenes></page-lista-ordenes>
-<Page-ordenes-cocina></Page-ordenes-cocina>
+<page-nueva-orden *ngIf="currentPage =='menu'"></page-nueva-orden>
+<page-lista-ordenes *ngIf="currentPage =='mesas'"></page-lista-ordenes>
+<Page-ordenes-cocina *ngIf="currentPage =='cocina'"></Page-ordenes-cocina>
 <router-outlet />

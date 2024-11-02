@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './nueva-orden.component.css'
 })
 export class NuevaOrdenComponent {
+
 idCategoria:number=1;
 BuscarProducto:string='';
 setearIdCategoria(idCate:number){

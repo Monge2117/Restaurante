@@ -1,52 +1,39 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Categorias } from '../interfaces/interfaces/categorias.';
 import { CarritoCompras } from '../interfaces/CarritoCompras.';
 import { Ordenes } from '../interfaces/ordenes.';
 import { Productos } from '../interfaces/Productos.';
+import { OrdenDataBaseServiceService } from './orden-data-base-service.service';
+import { OrdenesDetalle } from '../interfaces/OrdenesDetalle.';
+import { DtoOrden } from '../interfaces/dtoOrden.';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdenesService {
+  private ListaCategorias:Categorias[]=[];
+  private _ListaProductos: Productos[] =[];
 
-  constructor() { }
-
-  private ListaCategorias:Categorias[]=[{id:1,nombre:'Bebidas'},{id:2,nombre:'Desayunos'},{id:3,nombre:'Comida rapida'}]
-  private _ListaProductos: Productos[] = [
-    {id:1,
-      producto:"coca cola litro 2l abcdegerr sssss aaaaa",
-      cantidad:1,
-      precio:1000,
-      Categoria:1},
-      {id:2,
-        producto:"pepsi",
-        cantidad:1,
-        precio:1000,
-        Categoria:1},
-        {id:3,
-          producto:"arroz con pollo",
-          cantidad:1,
-          precio:1000,
-          Categoria:2}
-          ,{id:4,
-            producto:"arroz pinto",
-            cantidad:1,
-            precio:1000,
-            Categoria:2}
-            ,{id:5,
-              producto:"arroz con camarones",
-              cantidad:1,
-              precio:1000,
-              Categoria:2}
-  ];
   private _Ordenes: Ordenes[] = [];
   private _CarritoCompras: CarritoCompras[] = [];
+
+  constructor(private OrdenDataBaseServiceService:OrdenDataBaseServiceService) {
+    this.getDataMenu();
+  }
+
+
   public get CarritoCompras(): CarritoCompras[] {
+    return this._CarritoCompras;
+  }
+ setiarMesaCarritoCompras(mesa:string): CarritoCompras[] {
+    this._CarritoCompras.forEach(x => {
+      x.mesa = mesa;
+    });
     return this._CarritoCompras;
   }
 
   public SetCarritoCompras(id:number,cantidad:number,preciototal:number){
-   let producto= this._CarritoCompras.find(x =>x.id ==id);
+   let producto= this._CarritoCompras.find(x =>x.idProducto ==id);
    if (producto) {
    producto.cantidad = cantidad;
    producto.precioTotal = preciototal;
@@ -54,7 +41,7 @@ export class OrdenesService {
   }
 
   public eliminarItemCarritoCompras(id:number){
-    const index = this.CarritoCompras.findIndex(x => x.id == id);
+    const index = this.CarritoCompras.findIndex(x => x.idProducto == id);
      if (index !== -1) {
       this.CarritoCompras.splice(index, 1);
      }
@@ -63,7 +50,7 @@ export class OrdenesService {
     this._CarritoCompras =[];
   }
   public AgregarCarritoCompras(value: CarritoCompras) {
-  let producto =  this.CarritoCompras.find(x => x.id == value.id);
+  let producto =  this.CarritoCompras.find(x => x.idProducto == value.idProducto);
   if (producto != null) {
       producto.cantidad = value.cantidad;
       producto.precioTotal = value.precioTotal;
@@ -77,25 +64,35 @@ export class OrdenesService {
   }
 
   public AgregarOrden(value: Ordenes) {
-   const orden = this._Ordenes.find(x => x.mesa == value.mesa);
-   if(orden != null){
-    orden.productos.push(...value.productos);
-   }else{
-    this._Ordenes.push(value);
-   }
+    const objordenesDetalle: OrdenesDetalle[] = value.productos.map(({
+      mesa, idOrdenDetalle, idProducto, cantidad,
+      descripcion, cocinada, precioTotal })=> ({ mesa, idOrdenDetalle, idProducto, cantidad,
+                                                 descripcion, cocinada, precioTotal }));
+      const orden:DtoOrden ={
+        mesa:value.mesa
+      }
+
+      const obOrden = this._Ordenes.find(x => x.mesa == value.mesa);
+      if(obOrden == null){
+        this.OrdenDataBaseServiceService.insertDataOrdenes(orden);
+     }
+
+     this.OrdenDataBaseServiceService.insertDataDetalleOrdenes(objordenesDetalle);
+
   }
 
    GetProductos(idCategoria:number){
-    return [...this._ListaProductos.filter(x =>x.Categoria == idCategoria)]
+    return [...this._ListaProductos.filter(x =>x.categoria == idCategoria)]
  }
 
  GetSearchProductos(textoBuscado:string){
-  return [...this._ListaProductos.filter(x =>x.producto.includes(textoBuscado))]
+ return this._ListaProductos.filter(x => x.producto.toLowerCase().includes(textoBuscado.toLowerCase()));
 }
+
 get GetOrdenes(){
   return [...this._Ordenes]
 }
-get GetOrdenesCocina(){
+get GetOrdenesCocina():Ordenes[]{
 const productosNoCocinados = this._Ordenes.map(orden => ({
                                          mesa: orden.mesa,
                                          productos: orden.productos.filter(producto => !producto.cocinada) }))
@@ -114,8 +111,52 @@ const index = this._Ordenes.findIndex(x => x.mesa == mesa);
  let producto = Orden.productos.find(x => x.idOrdenDetalle == idOrdenDetalle);
  if (producto) {
      producto.cocinada = true;
+     this.setOrdenCocina(idOrdenDetalle);
  }
   }
+ }
+
+ getDataMenu(){
+  this.OrdenDataBaseServiceService.getDataCategorias().subscribe(response => {
+    this.ListaCategorias = response;
+  });
+
+  this.OrdenDataBaseServiceService.getDataProductos().subscribe(response => {
+    this._ListaProductos = response;
+  });
+
+  this.OrdenDataBaseServiceService.getDataOrdenes().subscribe(response => {
+    this._Ordenes = response;
+  });
+ }
+
+async getDataOrdenes(){
+
+  const obj = await this.OrdenDataBaseServiceService.getDataOrdenes().toPromise();
+   if(obj != null){
+    this._Ordenes = obj;
+   }
+
+  const response = await this.OrdenDataBaseServiceService.getDataDetalleOrdenes().toPromise();
+  if (response != null) {
+    this._Ordenes.forEach(x =>{
+      x.productos = response.filter(r => r.mesa ==x.mesa);
+     });
+
+      //obtenemos el nombre de producto
+   this._Ordenes.forEach(orden => {
+    orden.productos.forEach(productoCarrito => {
+       const productoEncontrado = this._ListaProductos.find(p => p.id === productoCarrito.idProducto);
+        if (productoEncontrado) {
+          productoCarrito.producto = productoEncontrado.producto;
+        }
+      });
+    });
+  }
+ }
+
+ setOrdenCocina(idOrdenDetalle:string){
+  this.OrdenDataBaseServiceService.UpdateDataDetalleOrdenesCocina(idOrdenDetalle);
  }
 
 }

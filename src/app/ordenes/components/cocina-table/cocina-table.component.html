@@ -1,3 +1,7 @@
+<button class="btn btn-primary mt-2" (click)="buscarOrdenes()">Buscar ordenes <i class="bi bi-arrow-clockwise"></i></button>
+<div *ngIf="cantidadOrdenes() == 0" class="alert alert-success mt-2" role="alert">
+  No hay ordenes!
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,12 +13,12 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let orden of obtenerOrdenes()">
+    <ng-container *ngFor="let orden of cargar()">
       <tr *ngFor="let prod of orden.productos">
         <td>{{orden.mesa}}</td>
         <td>{{prod.producto}}</td>
         <td>{{prod.cantidad}}</td>
-        <td>{{prod.descipcion}}</td>
+        <td>{{prod.descripcion}}</td>
         <td><button class="btn btn-primary" (click)="estaListo(orden.mesa,prod.idOrdenDetalle)">Esta listo!</button></td>
       </tr>
     </ng-container>

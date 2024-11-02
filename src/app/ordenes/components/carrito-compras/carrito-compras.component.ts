@@ -18,6 +18,10 @@ export class CarritoComprasComponent {
 ObtenerCarritoCompras(){
 return this.OrdenesService.CarritoCompras;
 }
+
+setearMesaCarritoCompras(mesa:string){
+  return this.OrdenesService.setiarMesaCarritoCompras(mesa);
+  }
 ConfirmarCarritoCompras(){
   if (this.MesaValue =="") {
     this.SweetAlertService.mensajeError('El campo cliente es obligatorio');
@@ -26,7 +30,7 @@ ConfirmarCarritoCompras(){
 
   const nuevaOrden:Ordenes = {
     mesa: this.MesaValue,
-    productos: this.ObtenerCarritoCompras()
+    productos: this.setearMesaCarritoCompras(this.MesaValue)
   }
  this.OrdenesService.AgregarOrden(nuevaOrden);
  this.SweetAlertService.mensajeConfirmacion('Se envio la orden');
